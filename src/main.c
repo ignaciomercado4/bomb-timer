@@ -51,6 +51,7 @@ int main() {
     }
 
     UnloadTexture(bombLightOff);
+    UnloadTexture(bombLightOn);
     CloseWindow();
 
     return 0;
