@@ -23,6 +23,7 @@ int main() {
     // Load sounds
     Sound initSound = LoadSound("audio/ok_lets_go.wav"); 
     Sound keyPressSound = LoadSound("audio/key_press.wav");
+    Sound explosionSound = LoadSound("audio/explosion.wav");
 
     // Input screen variables
     char minutes[MAX_INPUT_CHARS + 1] = "\0";
@@ -113,6 +114,7 @@ int main() {
                 }
             }
 
+            // Bom animation logic
             if (explosionActive) {
                 explosionFramesCounter++;
 
@@ -162,12 +164,13 @@ int main() {
             } else {
                 if (explosionActive) {
                     DrawTextureRec(explosion, frameRec, explosionPos, WHITE);
+                    DrawText("TIME IS UP!", SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2, 20, RED);
                 }
 
                 if (timeInSeconds <= 0) {
                     if (!explosionActive) {
-                        DrawText("TIME IS UP!", SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2, 20, RED);
                         explosionActive = true;
+                        PlaySound(explosionSound);
                     }
                 } else {
                     if (timerStarted) PlaySound(initSound);
@@ -198,6 +201,7 @@ int main() {
     UnloadTexture(explosion);
     UnloadSound(initSound);
     UnloadSound(keyPressSound);
+    UnloadSound(explosionSound);
     CloseAudioDevice();      
     CloseWindow();
 
